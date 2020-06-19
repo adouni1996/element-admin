@@ -106,7 +106,18 @@
 
 <script>
 	export default {
-		
+		data(){
+			return {
+				
+			}
+		},
+		beforeCreate() {
+			const token = localStorage.setItem('token')
+			
+			if (!token) {
+				this.$router.push({ name: 'login' })
+			}
+		}
 	}
 </script>
 
