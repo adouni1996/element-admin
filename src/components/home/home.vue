@@ -16,7 +16,7 @@
 					</el-col>
 					<el-col :span="8">
 						<div class="grid-content bg-purple">				
-							<a href='' class='longinout'>退出</a>
+							<a href='' class='longinout' @click.prevent="handleSignout()">退出</a>
 						</div>
 					</el-col>
 				</el-row>
@@ -111,9 +111,17 @@
 				
 			}
 		},
+		methods: {
+			handleSignout () {
+				localStorage.clear()
+				this.$message.success('退出成功')
+				this.$router.push({ name: 'login' })
+			}
+		},
+		
+		
 		beforeCreate() {
-			const token = localStorage.setItem('token')
-			
+			const token = localStorage.setItem('token')		
 			if (!token) {
 				this.$router.push({ name: 'login' })
 			}
