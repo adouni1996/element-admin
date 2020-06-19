@@ -20,29 +20,29 @@
 </template>
 
 <script>
-
+	import { login } from '@/api/getdata'
 	export default {
 		data(){
 			return {
 				formdata: {
 					username: '',
 					password: ''
-				}
+				},
+				res: ''
 			}
 		},
 		methods: {
-			handleLonin() {
-				this.$http.post('login',this.formdata)
-				.then(res => {
-					const { data, meta:{msg, status} } = res.data
-					if (status === 200) {
-						this.$route.push({name: 'home'})
-					} 
-					else if (status === 400) {
-						this.$message.error(msg)
-					}
-					console.log(res)
-				})
+			async handleLonin() {				
+				const data = await login(this.formdata)				
+				this.res = data.data
+				if (this.res.meta.status === 200) {
+					this.$message.success('登录成功')
+					localStorage.setItem('token',this.res.data.token)
+					this.$router.push({ name: 'home' })
+				}
+				else if (this.res.meta.status ===400) {
+					this.$message.error(this.res.meta.msg)
+				}
 			}
 		}
 	}
