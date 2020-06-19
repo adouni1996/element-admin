@@ -9,7 +9,7 @@
 		<!-- 搜索框 -->
 		<el-row>
 			<el-col>
-				<div style="margin-top: 15px;">
+				<div style="margin-top: 15px;width: 800px;">
 				  <el-input placeholder="请输入内容" v-model="query" class="input-with-select inputSearch">
 				    <el-button slot="append" icon="el-icon-search"></el-button>
 				  </el-input>
@@ -19,7 +19,7 @@
 		</el-row>
 		<!-- 表格 -->
 		<el-table
-      :data="tableData"
+      :data="userlist"
 			stripe=true
       style="width: 100%">
       <el-table-column
@@ -29,29 +29,50 @@
         width="60">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="username"
         label="姓名"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="email"
         label="邮箱">
       </el-table-column>
 			<el-table-column
-			  prop="address"
+			  prop="mobile"
 			  label="电话">
 			</el-table-column>
+			
+			<!-- temlate内部要用数据，设置slot-scope属性，属性值为数据源 -->
+			
 			<el-table-column
-			  prop="address"
 			  label="创建时间">
+				<template slot-scope='scope'>
+					{{ scope.row.create_time | fmdata}}
+				</template>
 			</el-table-column>
+			
+			
 			<el-table-column
-			  prop="address"
+			  prop="mg_state"
 			  label="用户状态">
+				<template slot-scope='scope'>
+					<el-switch
+					  v-model="scope.row.mg_state"
+					  active-color="#13ce66"
+					  inactive-color="#ff4949">
+					</el-switch>
+				</template>
+				
 			</el-table-column>
 			<el-table-column
 			  prop="address"
-			  label="操作">
+			  label="操作"
+				width="200">
+				<template>
+					<el-button type="primary" plain icon="el-icon-edit" circle></el-button>
+					<el-button type="danger"  plain icon="el-icon-delete" circle></el-button>
+					<el-button type="success" plain icon="el-icon-check" circle></el-button>
+				</template>
 			</el-table-column>
     </el-table>
 	</el-card>
@@ -63,47 +84,37 @@
 	export default {
 		data(){
 			return{
-				query: 'aa',
-				tableData:[{
-           date: '2016-05-02',
-           name: '王小虎',
-           address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-           date: '2016-05-04',
-           name: '王小虎',
-           address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-           date: '2016-05-01',
-           name: '王小虎',
-           address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-           date: '2016-05-03',
-           name: '王小虎',
-           address: '上海市普陀区金沙江路 1516 弄'
-        }],
 				res: '',
 				token: '',
 				query: '',
 				pagenum: 1,
-				pagesize: 10
+				pagesize: 10,
+				total: '',
+				userlist: []
 			}
 		},
 		methods:{
 			getToken () {
 				this.token = localStorage.getItem('token')
 			},
-			async getUserLi(token){
-				// this.$http.defaults.headers.common['Authorization'] = this.token
-				
-				// this.res =await this.$http.get(
-				// 	`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`
-				// )
-				
-				
-				
-				
+			async getUserLi(token){			
 				const data = await getUserList(this.token)
-				this.res = data.data 
+				const {
+					meta: {
+						status,msg
+					}, 
+					data: {
+						users,total
+					},
+				} = data.data 
+				if ( status === 200 ){	
+					this.userlist =users
+					this.total = total
+					this.$message.success(msg)
+				} else {
+					this.$message.warning(msg)
+				}
+				
 			}
 		},
 		created() {

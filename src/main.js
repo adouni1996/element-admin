@@ -7,11 +7,15 @@ import ElementUI from 'element-ui'
 import MyHttpServer from '@/plugins/http'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
+import moment from 'moment'
 
 
 Vue.use(ElementUI)
 Vue.use(MyHttpServer)
  
+Vue.filter('fmdata', v => {
+	return moment(v).format('YYYY-MM-DD')
+})
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

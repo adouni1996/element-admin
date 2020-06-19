@@ -26,8 +26,6 @@
 					<el-menu
 					      default-active="2"
 					      class="el-menu-vertical-demo"
-					      @open="handleOpen"
-					      @close="handleClose"
 					      background-color="#545c64"
 					      text-color="#fff"
 					      active-text-color="#ffd04b"
@@ -43,7 +41,7 @@
 											<span>用户列表</span>
 										</el-menu-item>			 
 								</el-submenu>
-								<el-submenu index="2">
+								<!-- <el-submenu index="2">
 								  <template slot="title">
 								    <i class="el-icon-setting"></i>
 								    <span>权限管理</span>
@@ -94,13 +92,12 @@
 											<i class="el-icon-location"></i>
 											<span>数据列表</span>
 										</el-menu-item>			 
-								</el-submenu>
+								</el-submenu> -->
 					    </el-menu>
 					  </el-col>
 					</el-row>
 				</el-aside>
-		    <el-main class='main'>
-					
+		    <el-main class='main'>		
 					<router-view></router-view>
 				</el-main>
 		  </el-container>

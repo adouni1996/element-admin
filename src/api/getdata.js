@@ -22,6 +22,7 @@ export const login = data => {
  */
 export const getUserList = (token,query='',pagenum=1,pagesize=10) => {
 	return new Promise( (resolve, reject) => {
+		axios.defaults.headers.common['Authorization'] = token
 		axios.get(`users?query=${query}&pagenum=${pagenum}&pagesize=${pagesize}`)
 		.then(res => {
 			resolve(res)
