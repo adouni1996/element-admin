@@ -26,70 +26,70 @@
 					<el-menu
 					      default-active="2"
 					      class="el-menu-vertical-demo"
-					      background-color="#545c64"
-					      text-color="#fff"
+					      background-color="#0866A4"
+					      text-color="#f1f1f1"
 					      active-text-color="#ffd04b"
-								unique-opened = true
-								router="true">				
-								<el-submenu index="1">
+								:unique-opened ='true'
+								router >				
+								<el-submenu index='1'>
 								  <template slot="title">
-								    <i class="el-icon-user"></i>
+								    <i class="el-icon-user" style="color:white;" ></i>
 								    <span>用户管理</span>
 								  </template>				
 								    <el-menu-item index="users">
-											<i class="el-icon-notebook-1"></i>
+											<i class="el-icon-notebook-1" style="color:white;"></i>
 											<span>用户列表</span>
 										</el-menu-item>			 
 								</el-submenu>
 								<!-- <el-submenu index="2">
 								  <template slot="title">
-								    <i class="el-icon-setting"></i>
+								    <i class="el-icon-setting" style="color:white;"></i>
 								    <span>权限管理</span>
 								  </template>				
 								    <el-menu-item index="2-1">
-											<i class="el-icon-bank-card"></i>
+											<i class="el-icon-bank-card" style="color:white;"></i>
 											<span>角色列表</span>
 										</el-menu-item>		
 										<el-menu-item index="2-2">
-											<i class="el-icon-set-up"></i>
+											<i class="el-icon-set-up" style="color:white;"></i>
 											<span>权限列表</span>
 										</el-menu-item>		
 								</el-submenu>
 								<el-submenu index="3">
 								  <template slot="title">
-								    <i class="el-icon-goods"></i>
+								    <i class="el-icon-goods" style="color:white;"></i>
 								    <span>商品管理</span>
 								  </template>				
 								    <el-menu-item index="3-1">
-											<i class="el-icon-notebook-1"></i>
+											<i class="el-icon-notebook-1" style="color:white;"></i>
 											<span>商品列表</span>
 										</el-menu-item>
 										<el-menu-item index="3-1">
-											<i class="el-icon-office-building"></i>
+											<i class="el-icon-office-building" style="color:white;"></i>
 											<span>分类参数</span>
 										</el-menu-item>
 										<el-menu-item index="3-1">
-											<i class="el-icon-reading"></i>
+											<i class="el-icon-reading" style="color:white;"></i>
 											<span>商品分类</span>
 										</el-menu-item>			 						 
 								</el-submenu>
 								<el-submenu index="4">
 								  <template slot="title">
-								    <i class="el-icon-s-order"></i>
+								    <i class="el-icon-s-order" style="color:white;"></i>
 								    <span>订单管理</span>
 								  </template>				
 								    <el-menu-item index="4-1">
-											<i class="el-icon-notebook-2"></i>
+											<i class="el-icon-notebook-2" style="color:white;"></i>
 											<span>订单列表</span>
 										</el-menu-item>			 
 								</el-submenu>
 								<el-submenu index="5">
 								  <template slot="title">
-								    <i class="el-icon-s-data"></i>
+								    <i class="el-icon-s-data" style="color:white;"></i>
 								    <span>数据统计</span>
 								  </template>				
 								    <el-menu-item index="5-1">
-											<i class="el-icon-location"></i>
+											<i class="el-icon-location" style="color:white;"></i>
 											<span>数据列表</span>
 										</el-menu-item>			 
 								</el-submenu> -->
@@ -122,7 +122,7 @@
 		
 		
 		beforeCreate() {
-			const token = localStorage.setItem('token')		
+			const token = localStorage.getItem('token')		
 			if (!token) {
 				this.$router.push({ name: 'login' })
 			}
@@ -138,9 +138,11 @@
 		height: 100%
 	}
 	.header {
-		background-color:white;
+		background-color:rgb(8,102,164);
+		border-bottom: 2px solid white;
 		height: 60px;
 		line-height: 60px;
+		display: none;
 		
 	}
 	.center{
@@ -158,5 +160,8 @@
 	.main{
 		background-color: #FAFAFA;
 	}
-	
+	.el-menu-vertical-demo{
+		color: white;
+	}
+
 </style>
